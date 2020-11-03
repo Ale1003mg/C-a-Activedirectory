@@ -28,7 +28,7 @@
 <body style="height: 188px">
     <br />
     <br />
-    <h1 class="auto-style6"><label style="text-align:center">Prueba de Active Directory a C# </label></h1>
+    <h1 class="auto-style6"><label style="text-align:center">Prueba de Active Directory para C# </label></h1>
     <br />
     <br />
     <table class="auto-style2">
