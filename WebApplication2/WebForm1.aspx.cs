@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.DirectoryServices;
 using System.Drawing;
 using System.Data.SqlClient;
+using System.IO;
+using System.Net;
 
 namespace WebApplication2
 {
@@ -19,7 +21,7 @@ namespace WebApplication2
 
         protected void Button1_Click(object sender, EventArgs e)//login
         {
-
+            
            
             string Server = "simpe.net";// dominio del servidor
             string ruta = "LDAP://"+Server+ "/DC=simpe,DC=net"; //Editor ADSI
@@ -67,5 +69,72 @@ namespace WebApplication2
           
         }
 
+        protected void Button2_Click(object sender, EventArgs e)//Get
+        {
+            var url = $"http://localhost:58714/api/Enviar/Prueba";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) return;
+                        using (StreamReader objReader = new StreamReader(strReader))
+                        {
+                            string responseBody = objReader.ReadToEnd();
+                            // Do something with responseBody
+                            permitido.Text= responseBody;
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Handle error
+            }
+        }
+
+        protected void Button3_Click(object sender, EventArgs e)//Post
+        {
+            var url = $"http://localhost:58714/api/Enviar/ConsultaPagosEnviados";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            string json = $"{{}}";
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (Stream strReader = response.GetResponseStream())
+                    {
+                        if (strReader == null) return;
+                        using (StreamReader objReader = new StreamReader(strReader))
+                        {
+                            string responseBody = objReader.ReadToEnd();
+                            // Do something with responseBody
+                            permitido.Text = responseBody;
+                        }
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Handle error
+            }
+        }
     }
 }

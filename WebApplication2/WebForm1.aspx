@@ -46,6 +46,10 @@
                         <asp:Button ID="Button1" runat="server" Text="Ingresar" OnClick="Button1_Click" Width="232px" /><br /><br />
                             <asp:TextBox ID="permitido" runat="server" Width="228px" Enabled="False" Height="61px" TextMode="MultiLine"></asp:TextBox><br />
 
+                            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Api(Get)" Width="113px" />
+                            <asp:Button ID="Button3" runat="server" OnClick="Button3_Click" Text="Api(Post)" Width="126px" />
+                            <br />
+
                         </div>
         
                     </form>
